@@ -1,9 +1,10 @@
-using Fusion;
-using Fusion.Sockets;
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Fusion;
 using UnityEngine;
+using Fusion.Sockets;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 {
@@ -33,12 +34,37 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
     async void Start()
     {
+        StartSharedSession();
+    }
+
+    public async void StartSharedSession()
+    {
         // Create the network runner when the game starts
         CreateRunner();
 
-        // Connect to the network
+        // Load Scene
+        await LoadScene();
+
+        // Connect Session/Network
         await Connect();
+
     }
+
+    public async Task LoadScene()
+    {
+        // Start loading the scene asynchronously
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1);
+
+        // Wait until the scene is fully loaded
+        while (!asyncLoad.isDone)
+        {
+            // Yield the current frame to avoid blocking the main thread
+            await Task.Yield();
+        }
+
+        // Scene loading is complete
+        Debug.Log("Scene loading completed");
+    } 
 
     public void CreateRunner()
     {
@@ -57,6 +83,7 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
             GameMode = GameMode.Shared, // Example: Set the game mode to "Shared"
             SessionName = "BrightSession", // Example: Set the session name to "BrightSession"
             SceneManager = GetComponent<NetworkSceneManagerDefault>(), // Get the NetworkSceneManagerDefault component from this object
+            //Scene = 1,
         };
 
         // Start the game asynchronously using the SessionRunner and provided args

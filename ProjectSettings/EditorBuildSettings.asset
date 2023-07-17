@@ -6,6 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Game.unity
+    path: Assets/IRONHEADGames/Scenes/LogInScene.unity
+    guid: 1757507b4ccaeb2408ec53bb4ed0a5a1
+  - enabled: 1
+    path: Assets/IRONHEADGames/Scenes/ArcadeHall.unity
+    guid: d48da0ddabe0b9849971e263c73b4237
+  - enabled: 0
+    path: Assets/Scenes/PC.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  m_configObjects: {}
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 2bfb67de9c3982f48be827ceca49fb82, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c3765c7ab0ca83e42840d5b8e2efdbbb, type: 2}
